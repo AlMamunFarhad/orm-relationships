@@ -21,7 +21,16 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-      User::factory(10)->has(Post::factory()->count(2)->has(Comment::factory()->count(2)))->create();
+        $this->call([
+
+         UserSeeder::class,
+         CommentSeeder::class,
+         PostSeeder::class
+
+
+        ]);
+
+      // User::factory(10)->has(Post::factory()->count(2)->has(Comment::factory()->count(2)))->create();
 
     }
 }
