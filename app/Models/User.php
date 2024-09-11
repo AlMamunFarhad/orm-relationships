@@ -46,13 +46,44 @@ class User extends Authenticatable
         ];
     }
 
-    public function posts()
+
+  public function posts()
     {
-        return $this->hasMany(Post::class);
+       return $this->hasMany(Post::class);
+    }
+    
+    public function postComment(){
+
+     //    return $this->hasManyThrough(Comment::class,
+     //     Post::class, 
+     //     'user_id', 
+     //     'post_id',
+     //     'id',
+     //     'id'
+     // );
+
+        // return $this->through('posts')->has('comments');
+
+        return $this->throughPosts()->hasComments();
+
+   
+
+
+
     }
 
-    public function comment(){
+   public function postComments(){
+
+   return $this->hasManyThrough(Comment::class, Post::class);
+
+   }
+
+
+    public function comments(){
       
         return $this->belongsTo(Comment::class);
     }
+
+
+
 }

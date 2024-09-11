@@ -72,6 +72,49 @@ Route::get('/', function () {
 
 // dd(Post::find(2)->user()->delete());
 
+
+//#### ORM Relationships Has One and Many Through ####//
+
+// $comment = ['message'=> 'Hello form Comment.'];
+
+
+// User::find(1)->postComment()->update($comment);
+
+
+// dd(User::find(1)->postComment()->orderBy('id', 'asc')->first()->message);
+
+   // $message = ['message'=> "Comment updated"];
+
+   //  dd(User::find(3)->postComment()->get()->where('id',5)->first()->update($message));
+
+$message = ['post_id' => 10, 'message' => "Comment created new anothor"];
+// dd(User::find(1)->postComment()->create($message));
+// dd(User::find(1)->postComment()->updateOrCreate($message));
+
+// dd(User::find(1)->postComment()->first());
+
+// dd(User::find(1)->postComment()->latest()->first());
+// $comment = User::find(1)->postComment()->latest()->first();
+
+// $comment->message = "Laravel is awesome 1.";
+// $comment->save();
+
+
+// dd(User::find(1)->postComment[0]->post->user->posts->each(function ($post){
+//    $post->id === 9 ? $post->delete() : $post->refresh();
+// }));
+
+
+
+$comment = ['message'=> "Farhad " . fake()->sentence];
+
+// User::find(3)->postComments()->create($post);
+User::find(3)->postComments()->first()->delete();
+
+
+
+
+
 });
 
 // Schema::disableForeignKeyConstraints();

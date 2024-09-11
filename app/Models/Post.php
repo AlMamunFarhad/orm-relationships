@@ -18,10 +18,10 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }    
 
-    public function check_comment(){
+    // public function check_comment(){
 
-        return $this->hasOne(Comment::class);
-    }
+    //     return $this->hasOne(Comment::class);
+    // }
 
     public function user(){
 
