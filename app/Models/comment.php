@@ -9,7 +9,11 @@ class Comment extends Model
 {
     use HasFactory;
 
+    
+
     protected $guarded = [];
+
+    protected $touches = ['post'];
 
     public function user(){
 

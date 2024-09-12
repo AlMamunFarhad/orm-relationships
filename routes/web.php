@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
-
+use App\Models\Role;
 use Illuminate\Support\Facades;
 
 Route::get('/', function () {
@@ -87,7 +87,7 @@ Route::get('/', function () {
 
    //  dd(User::find(3)->postComment()->get()->where('id',5)->first()->update($message));
 
-$message = ['post_id' => 10, 'message' => "Comment created new anothor"];
+// $message = ['post_id' => 10, 'message' => "Comment created new anothor"];
 // dd(User::find(1)->postComment()->create($message));
 // dd(User::find(1)->postComment()->updateOrCreate($message));
 
@@ -106,10 +106,60 @@ $message = ['post_id' => 10, 'message' => "Comment created new anothor"];
 
 
 
-$comment = ['message'=> "Farhad " . fake()->sentence];
+// $comment = ['message'=> "Farhad " . fake()->sentence];
 
-// User::find(3)->postComments()->create($post);
-User::find(3)->postComments()->first()->delete();
+// // User::find(3)->postComments()->create($post);
+// User::find(3)->postComments()->first()->delete($);
+
+
+//#### ORM Relationships Many to Many ####//
+
+$user = User::find(3);
+
+// $user->roles()->attach(1); 
+
+// $user->roles()->detach(1);
+// $user->roles()->sync([1]);
+// $user->roles()->syncWithoutDetaching([1,2,3,4]);
+
+// $user->roles()->create(['name'=>'Abdullah']);
+
+
+
+// $role = new Role(['name'=>'Farhad']);
+
+// $user->roles()->save($role);
+
+// $user->roles()->toggle(1);
+
+// $user->roles()->toggle([3 => ['created_at'=> now()]]);
+
+// Role::destroy([4,6]);
+
+
+// $user->roles()->updateExistingPivot(2, ['user_id'=> 3]);
+
+$comment = new Comment(['message'=>'This is comment']);
+
+dd(Post::find(1)->comments()->save($comment));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
