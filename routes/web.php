@@ -6,9 +6,13 @@ use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Role;
+use App\Models\Image;
 use Illuminate\Support\Facades;
 
 Route::get('/', function () {
+
+    // dd(User::find(1)->posts);
+
     // return view('welcome');
    
    // $user = [
@@ -114,7 +118,7 @@ Route::get('/', function () {
 
 //#### ORM Relationships Many to Many ####//
 
-$user = User::find(3);
+// $user = User::find(3);
 
 // $user->roles()->attach(1); 
 
@@ -139,13 +143,32 @@ $user = User::find(3);
 
 // $user->roles()->updateExistingPivot(2, ['user_id'=> 3]);
 
-$comment = new Comment(['message'=>'This is comment']);
+// $comment = new Comment(['message'=>'This is comment']);
 
-dd(Post::find(1)->comments()->save($comment));
-
-
+// dd(Post::find(1)->comments()->save($comment));
 
 
+
+
+//#### ORM Relationships Polymorphic One to One ####//
+
+$user = User::find(4);
+$post = Post::find(1);
+$img = new Image(['path'=> fake()->imageUrl('100','50')]);
+
+$image = Image::find(12);
+dd($image->imageable);
+
+// dd($image->imageable()->delete());
+
+
+// $post->image()->save($img);
+// dd($post->image()->update(['path'=> fake()->imageUrl('100','50')]));
+
+// dd($user->image()->delete());
+
+
+return "Successfully added.";
 
 
 

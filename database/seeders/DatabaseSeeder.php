@@ -4,6 +4,7 @@ namespace Database\Seeders;
 use App\Models\Comment;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Image;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -23,7 +24,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
          
-         RoleSeeder::class,
+         ImageSeeder::class,
+         // RoleSeeder::class,
          // UserSeeder::class,
          // CommentSeeder::class,
          // PostSeeder::class
