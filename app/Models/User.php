@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 
 class User extends Authenticatable
@@ -93,6 +94,23 @@ class User extends Authenticatable
 
    }
 
+    public function images() : MorphMany{
+    return $this->morphMany(Image::class, 'imageable');
+   }
+
+    public function latestImage() : MorphOne{
+
+    return $this->morphOne(Image::class, 'imageable')->latestOfMany();
+    }
+     
+    public function oldestImage() : MorphOne{
+
+    return $this->morphOne(Image::class, 'imageable')->oldestOfMany();
+
+    }
+
+
+   
 
 
     // public function comments(){

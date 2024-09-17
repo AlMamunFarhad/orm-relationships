@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\Role;
 use App\Models\Image;
 use Illuminate\Support\Facades;
+use App\Models\Tag;
 
 Route::get('/', function () {
 
@@ -152,12 +153,12 @@ Route::get('/', function () {
 
 //#### ORM Relationships Polymorphic One to One ####//
 
-$user = User::find(4);
-$post = Post::find(1);
-$img = new Image(['path'=> fake()->imageUrl('100','50')]);
+// $user = User::find(4);
+// $post = Post::find(1);
+// $img = new Image(['path'=> fake()->imageUrl('100','50')]);
 
-$image = Image::find(12);
-dd($image->imageable);
+// $image = Image::find(12);
+// dd($image->imageable);
 
 // dd($image->imageable()->delete());
 
@@ -168,9 +169,43 @@ dd($image->imageable);
 // dd($user->image()->delete());
 
 
-return "Successfully added.";
+// return "Successfully added.";
 
 
+    //#### ORM Relationships Polymorphic One to One ####//
+
+    //#### Polymorphic One to many / Many to many ####//
+
+
+
+
+   // $user = User::find(3);
+
+   // dd($user->images->each(function($image){
+
+   // dd($image);
+
+   // }));
+
+   // dd($user->latestImage);
+   // dd($user->oldestImage);
+
+    $post = Post::find(1);
+    // $comment = Comment::find(1);
+
+    // $tag = new Tag;
+
+    // $tag->name = "PHP";
+    dd($post->tags[3]->pivot->created_at);
+
+         // $post->tags()->save($tag);
+
+     // $comment->tags()->save($tag);
+
+
+
+
+    // dd(Tag::find(4)->comments[0]->delete());
 
 
 
@@ -200,4 +235,5 @@ return "Successfully added.";
 // dd(Comment::find(1)->user->name);
 // has one inverse
 // dd(User::find(1)->comment->message);
+
 
