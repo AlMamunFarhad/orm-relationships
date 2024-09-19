@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
@@ -10,7 +10,19 @@ use App\Models\Image;
 use Illuminate\Support\Facades;
 use App\Models\Tag;
 
+
 Route::get('/', function () {
+
+
+
+// #### File Storage ####
+
+
+
+
+
+
+
 
     // dd(User::find(1)->posts);
 
@@ -190,13 +202,15 @@ Route::get('/', function () {
    // dd($user->latestImage);
    // dd($user->oldestImage);
 
-    $post = Post::find(1);
-    // $comment = Comment::find(1);
+   //  $post = Post::find(1);
+   //  $comment = Comment::find(1);
+
+   // echo $comment->message;
 
     // $tag = new Tag;
 
     // $tag->name = "PHP";
-    dd($post->tags[3]->pivot->created_at);
+    // dd($post->tags[3]->pivot->created_at);
 
          // $post->tags()->save($tag);
 
@@ -208,20 +222,7 @@ Route::get('/', function () {
     // dd(Tag::find(4)->comments[0]->delete());
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+return view('welcome');
 
 });
 
@@ -235,5 +236,57 @@ Route::get('/', function () {
 // dd(Comment::find(1)->user->name);
 // has one inverse
 // dd(User::find(1)->comment->message);
+
+
+Route::get('/create', function() {
+
+
+  // Storage::put('example.txt', 'Nice');
+
+    // Storage::createDirectory('FARHAD');
+
+
+    // Storage::makeDirectory('FARHAD');
+
+    // $directory = "abdullah";
+
+    // Storage::makeDirectory($directory);
+
+
+    Storage::disk('custom')->put('example.txt', 'This is file');
+
+  
+  return back();
+
+
+
+
+});
+
+Route::get('/delete', function() {
+
+  // Storage::delete('example.txt');
+
+  // return back();
+
+
+});
+
+Route::post('/upload', function(Illuminate\Http\Request $request){
+   
+   // dd($request->upload->move('images', uniqid().'/'. $request->file('upload')->getClientOriginalName())); 
+    // $request->upload->move('images', $request->file('upload')->getClientOriginalName());
+
+   
+    // Storage::put('new_image', $request->file('upload'));
+
+    Storage::copy('images/nZ24VnbGPXjTGXrTEvT2TES33qfTpiVA6HCUZhuE.jpg', 'new_name/new_girl.jpg');
+
+   // $request->upload->store('link_img');
+
+    return back();
+
+});
+
 
 
