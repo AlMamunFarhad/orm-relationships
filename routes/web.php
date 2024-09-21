@@ -2,26 +2,92 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserTestEmail;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Role;
 use App\Models\Image;
-use Illuminate\Support\Facades;
 use App\Models\Tag;
-
+use App\Jobs\TestJob;
 
 Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/job', function () {
+    
+    TestJob::dispatch();
+    return 'job Dispatched.';
+});
+
+Route::get('/mail', function() {
+
+ // $users = User::all();
+
+ // foreach ($users as $user) {
+     
+ //     Mail::to($user)->send(new UserTestEmail($user));
+
+ // }
+
+
+$user = User::find(1);
+
+Mail::to($user)->send(new UserTestEmail($user));
+
+
+ return 'welcome send your Email.';
+    
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
 
 
 
-// #### File Storage ####
+
+// Route::get('/', function () {
 
 
 
 
 
 
+
+
+
+
+// #### Sending Emails #### //
+
+// $user = new User();
+// $user->email = 'farhad@gamil.com';
+// $user->name = 'Farhad';
+
+
+// Mail::send(new UserTestEmail($user));
+
+// return "<h1>Send Eamil</h1>";
+
+// Mail::send('test_mail', ['name'=>'Farhad'], function($message){
+//     $message->to('farhadmikky@gmail.com', 'Farhad This is my first mail');
+// });
+
+// return 'Send Email';
+
+
+// #### Sending Emails End #### //
 
 
     // dd(User::find(1)->posts);
@@ -222,9 +288,8 @@ Route::get('/', function () {
     // dd(Tag::find(4)->comments[0]->delete());
 
 
-return view('welcome');
 
-});
+// });
 
 // Schema::disableForeignKeyConstraints();
 
@@ -236,6 +301,9 @@ return view('welcome');
 // dd(Comment::find(1)->user->name);
 // has one inverse
 // dd(User::find(1)->comment->message);
+
+
+// #### File Storage ####
 
 
 Route::get('/create', function() {
@@ -287,6 +355,8 @@ Route::post('/upload', function(Illuminate\Http\Request $request){
     return back();
 
 });
+
+// #### File Storage End ####
 
 
 
