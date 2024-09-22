@@ -12,16 +12,90 @@ use App\Models\Role;
 use App\Models\Image;
 use App\Models\Tag;
 use App\Jobs\TestJob;
+use App\Jobs\DeleteUser;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/job', function () {
-    
-    TestJob::dispatch();
-    return 'job Dispatched.';
+//######### QUEUE START ############
+
+Route::get('/queuedelete', function () {
+
+  $user = auth()->loginUsingId(10);
+ 
+  // dd($user);
+
+  if (auth()->check()) {
+
+
+    App\Jobs\UpdateUserLastLogin::dispatch(auth()->user())->onConnection('database2')->onQueue('default');
+    DeleteUser::dispatch()->onConnection('database3')->onQueue('custom');
+    TestJob::dispatch()->onConnection('database')->onQueue('default');
+
+
+    // App\Jobs\UpdateUserLastLogin::dispatch(auth()->user())->onQueue('local');
+    // TestJob::dispatch()->onQueue('custom');
+    // DeleteUser::dispatch();
+      
+  }
+
+
+
+
 });
+
+
+
+// Route::get('/job', function () {
+    
+//     TestJob::dispatch();
+//     return 'job Dispatched.';
+// });
+
+// Route::get('/delete', function () {
+    
+//     DeleteUser::dispatch();
+//     return 'Delete job Dispatched.';
+// });
+
+Route::get('testlogin', function () {
+    
+  $user = auth()->loginUsingId(10);
+ 
+  // dd($user);
+
+  if (auth()->check()) {
+
+    // App\Jobs\UpdateUserLastLogin::dispatch($user);
+    App\Jobs\UpdateUserLastLogin::dispatch(auth()->user());
+      
+  }
+
+  return "User  job Dispatched.";
+  
+});
+
+
+Route::get('testlogin', function () {
+    
+  $user = auth()->loginUsingId(10);
+ 
+  // dd($user);
+
+  if (auth()->check()) {
+
+    // App\Jobs\UpdateUserLastLogin::dispatch($user);
+    App\Jobs\UpdateUserLastLogin::dispatch(auth()->user());
+      
+  }
+
+  return "User  job Dispatched.";
+  
+});
+
+//######### QUEUE END ############
+
 
 Route::get('/mail', function() {
 
@@ -331,14 +405,14 @@ Route::get('/create', function() {
 
 });
 
-Route::get('/delete', function() {
+// Route::get('/delete', function() {
 
-  // Storage::delete('example.txt');
+//   // Storage::delete('example.txt');
 
-  // return back();
+//   // return back();
 
 
-});
+// });
 
 Route::post('/upload', function(Illuminate\Http\Request $request){
    
